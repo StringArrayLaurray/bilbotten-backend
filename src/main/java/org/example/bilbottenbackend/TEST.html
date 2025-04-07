@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST</title>
+</head>
+<body>
+<h2>TEST</h2>
+
+<form id="uploadForm">
+    <input type="file" name="image" accept="image/*" required />
+    <button type="submit">Upload</button>
+</form>
+
+<p id="response"></p>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        const fileInput = document.querySelector('input[name="image"]');
+        formData.append('image', fileInput.files[0]);
+
+        try {
+            const res = await fetch('http://localhost:8080/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const text = await res.text();
+            document.getElementById('response').innerText = 'Server responded: ' + text;
+        } catch (err) {
+            document.getElementById('response').innerText = 'Upload failed';
+            console.error(err);
+        }
+    });
+</script>
+</body>
+</html>
