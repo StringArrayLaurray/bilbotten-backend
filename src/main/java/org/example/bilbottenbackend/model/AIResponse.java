@@ -1,4 +1,4 @@
 package org.example.bilbottenbackend.model;
 
-public class AIReponse {
+public class AIResponse {
 }
