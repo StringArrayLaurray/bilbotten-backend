@@ -7,21 +7,31 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class AIRequest {
     private String model;
     private List<Message> messages;
     private double temperature;
     private double top_p;
 
+    public AIRequest(){}
+    public AIRequest(String model, List<Message> messages, double temperature, double top_p) {
+        this.model = model;
+        this.messages = messages;
+        this.temperature = temperature;
+        this.top_p = top_p;
+    }
+
     @Setter
     @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Message {
         private String role;
         private List<ContentPart> content;
+
+        public Message(){}
+        public Message(String role, List<ContentPart> content){
+            this.role = role;
+            this.content = content;
+        }
     }
 
     @Getter
@@ -42,9 +52,14 @@ public class AIRequest {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class ImageUrl {
         private String url;
+
+        public ImageUrl(){}
+        public ImageUrl(String url){
+            this.url = url;
+        }
     }
+
+
 }
