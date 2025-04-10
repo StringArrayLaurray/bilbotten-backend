@@ -26,13 +26,18 @@ public class AIRequest {
 
     @Getter
     @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class ContentPart {
         private String type;
         private String text; // Only used when type == "text"
         private ImageUrl image_url; // Only used when type == "image_url"
+
+        public ContentPart(){}
+        public ContentPart(String type, String text, ImageUrl image_url){
+            this.type = type;
+            this.text = text;
+            this.image_url = image_url;
+        }
     }
 
     @Getter

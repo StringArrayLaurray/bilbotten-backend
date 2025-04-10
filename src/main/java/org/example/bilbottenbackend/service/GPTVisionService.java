@@ -50,7 +50,16 @@ public class GPTVisionService {
                                     .flatMap(body -> Mono.error(new RuntimeException("API error: " + body)))
                     )
                     .bodyToMono(AIResponse.class)
-                    .map(response -> response.getChoices().get(0).getMessage().getContent());
+                    .map(response -> {
+                        String raw = response.getChoices().get(0).getMessage().getContent();
+                        return raw.toUpperCase().replaceAll("[^A-Z0-9]", "").toUpperCase();
+                    })
+                    .flatMap(cleaned -> {
+                        if ("NULL".equalsIgnoreCase(cleaned)) {
+                            return Mono.error(new RuntimeException("No plate found"));
+                        }
+                        return Mono.just(cleaned);
+                    });
 
         } catch (IOException e) {
             return Mono.error(e);
